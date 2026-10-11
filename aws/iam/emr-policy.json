@@ -1,0 +1,56 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:GetBucketLocation",
+      "Resource": "arn:aws:s3:::${S3_BUCKET}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::${S3_BUCKET}",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "telemetry",
+            "telemetry/*",
+            "jobs/route_analytics.py",
+            "analytics",
+            "analytics/*",
+            "logs",
+            "logs/*"
+          ]
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": [
+        "arn:aws:s3:::${S3_BUCKET}/telemetry/*",
+        "arn:aws:s3:::${S3_BUCKET}/jobs/route_analytics.py",
+        "arn:aws:s3:::${S3_BUCKET}/analytics/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:AbortMultipartUpload"
+      ],
+      "Resource": [
+        "arn:aws:s3:::${S3_BUCKET}/analytics/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:AbortMultipartUpload"
+      ],
+      "Resource": "arn:aws:s3:::${S3_BUCKET}/logs/*"
+    }
+  ]
+}

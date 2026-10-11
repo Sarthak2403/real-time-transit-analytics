@@ -1,0 +1,16 @@
+[Unit]
+Description=Transit Docker Compose stack
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=/opt/transit
+ExecStart=/usr/bin/docker compose up -d --wait
+ExecStop=/usr/bin/docker compose stop
+TimeoutStartSec=10min
+
+[Install]
+WantedBy=multi-user.target

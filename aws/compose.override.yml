@@ -1,0 +1,16 @@
+services:
+  postgres:
+    restart: unless-stopped
+    logging: &logs
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  kafka:
+    restart: unless-stopped
+    environment:
+      KAFKA_LOG_RETENTION_HOURS: 24
+    logging: *logs
+  backend:
+    restart: unless-stopped
+    logging: *logs
+  simulator:
+    logging: *logs

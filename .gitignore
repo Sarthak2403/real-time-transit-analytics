@@ -1,0 +1,7 @@
+backend/target/
+__pycache__/
+*.pyc
+.env
+benchmark-results.json
+aws/.venv/
+aws/.state/
